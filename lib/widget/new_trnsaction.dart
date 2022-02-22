@@ -15,11 +15,11 @@ class NewTransaction extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           TextField(
-            decoration: InputDecoration(labelText: 'Title'),
+            decoration: const InputDecoration(labelText: 'Title'),
             controller: titleController,
           ),
           TextField(
-            decoration: InputDecoration(labelText: 'Amount'),
+            decoration: const InputDecoration(labelText: 'Amount'),
             controller: amountController,
           ),
           FlatButton(
