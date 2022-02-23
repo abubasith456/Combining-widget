@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transaction;
+  final Function(String) deleteTransaction;
 
-  TransactionList(this.transaction);
+  TransactionList(this.transaction, this.deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -32,35 +33,27 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).primaryColor, width: 2),
-                        ),
-                        child: Text(
-                          'Rs.' + transaction[index].amount.toString(),
-                          style: TextStyle(
-                            fontFamily: 'OpenSans',
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(transaction[index].title,
-                              style: Theme.of(context).textTheme.titleLarge),
-                          Text(DateFormat().format(transaction[index].date),
-                              style: Theme.of(context).textTheme.titleMedium),
-                        ],
-                      )
-                    ],
+                  margin: EdgeInsets.all(5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                        radius: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: FittedBox(
+                              child: Text('${transaction[index].amount}')),
+                        )),
+                    title: Text(
+                      transaction[index].title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    subtitle: Text(
+                        DateFormat.yMMMd().format(transaction[index].date)),
+                    trailing: IconButton(
+                      color: Theme.of(context).errorColor,
+                      icon: Icon(Icons.delete),
+                      onPressed: () =>
+                          deleteTransaction(transaction[index].id as String),
+                    ),
                   ),
                 );
               },
