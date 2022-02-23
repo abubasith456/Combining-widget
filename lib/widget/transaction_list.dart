@@ -11,45 +11,61 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 400,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 5,
-            child: Row(
+      child: transaction.isEmpty
+          ? Column(
               children: [
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue, width: 2),
-                  ),
-                  child: Text(
-                    'Rs.' + transaction[index].amount.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.blue),
-                  ),
-                  padding: const EdgeInsets.all(10),
+                Text('No transaction yet!',
+                    style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(
+                  height: 20,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transaction[index].title,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      DateFormat().format(transaction[index].date),
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    )
-                  ],
+                Container(
+                  height: 200,
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
                 )
               ],
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  elevation: 5,
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Theme.of(context).primaryColor, width: 2),
+                        ),
+                        child: Text(
+                          'Rs.' + transaction[index].amount.toString(),
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(transaction[index].title,
+                              style: Theme.of(context).textTheme.titleLarge),
+                          Text(DateFormat().format(transaction[index].date),
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
+              itemCount: transaction.length,
             ),
-          );
-        },
-        itemCount: transaction.length,
-      ),
     );
   }
 }
