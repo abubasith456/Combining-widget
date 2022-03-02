@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import '../model/transaction.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +18,7 @@ class TransactionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 5,
       ),
@@ -37,9 +39,9 @@ class TransactionItem extends StatelessWidget {
         subtitle: Text(DateFormat.yMMMd().format(transaction.date)),
         trailing: MediaQuery.of(context).size.width > 450
             ? FlatButton.icon(
-                onPressed: () => deleteTransaction(transaction.id as String),
-                icon: Icon(Icons.delete),
-                label: Text('Delete'),
+                onPressed: () => deleteTransaction(transaction.id),
+                icon: const Icon(Icons.delete),
+                label: const Text('Delete'),
                 textColor: Theme.of(context).errorColor,
               )
             : IconButton(
